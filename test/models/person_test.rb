@@ -10,4 +10,9 @@ class PersonTest < ActiveSupport::TestCase
     person = Person.new(first_name: 'first', last_name: '')
     assert_not(person.valid?)
   end
+
+  test "if all attributes are not blank, validation is true" do
+    person = Person.new(first_name: 'first', last_name: 'last')
+    assert(person.valid?)
+  end
 end
