@@ -1,8 +1,10 @@
 <% if object.errors.any? %>
-  <p>入力されたフォームにエラーがあります。</p>
-  <ul>
-    <% object.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
+  <div class="alert alert-danger">
+    <p>入力されたフォームにエラーがあります。</p>
+    <ul>
+      <% object.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
