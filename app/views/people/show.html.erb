@@ -1,0 +1,20 @@
+<h1><%= @person.first_name %> <%= @person.last_name %></h1>
+<% if @person.addresses.any? %>
+  <h2>Addresses:</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Kind</th>
+        <th>Street</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @person.addresses.each do |address| %>
+        <tr>
+          <td><%= address.kind %></td>
+          <td><%= address.street %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
