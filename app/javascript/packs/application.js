@@ -8,6 +8,7 @@ require("@rails/activestorage").start()
 require("channels")
 
 require('./nested-form/addFields')
+require('./nested-form/removeFields')
 
 import 'bootstrap'
 import '../stylesheets/application'
