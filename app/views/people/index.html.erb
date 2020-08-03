@@ -15,7 +15,7 @@
         <td><%= person.last_name %></td>
         <td><%= link_to('詳細', person_path(person), class: 'btn btn-primary') %></td>
         <td><%= link_to('編集', edit_person_path(person), class: 'btn btn-secondary') %></td>
-        <td>削除</td>
+        <td><%= link_to('削除', person_path(person), class: 'btn btn-danger', method: :delete, data: { confirm: '削除しますか?'}) %></td>
       </tr>
     <% end %>
   </tbody>
