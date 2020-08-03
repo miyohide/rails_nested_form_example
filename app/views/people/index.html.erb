@@ -14,7 +14,7 @@
         <td><%= person.first_name %></td>
         <td><%= person.last_name %></td>
         <td><%= link_to('詳細', person_path(person), class: 'btn btn-primary') %></td>
-        <td>編集</td>
+        <td><%= link_to('編集', edit_person_path(person), class: 'btn btn-secondary') %></td>
         <td>削除</td>
       </tr>
     <% end %>
