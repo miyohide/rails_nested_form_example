@@ -48,6 +48,27 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to person_path(p)
   end
 
+  test "PUT /people/:id with addresses params" do
+    a = FactoryBot.create(:address)
+    put "/people/#{a.person.id}", params:  {
+        person: {
+            first_name: 'f', last_name: 'l',
+            addresses_attributes: {
+                '0' => {
+                    _destroy: '1', kind: 'deleted_kind', street: 'deleted_street', id: a.id
+                },
+                '1' => {
+                    _destroy: false , kind: 'k1', street: 's1'
+                },
+                '2' => {
+                    _destroy: false, kind: 'k2', street: 's2'
+                }
+            }
+        }}
+    assert_nil(Address.find_by(id: a.id))
+    assert_equal(2, Address.all.size)
+  end
+
   test "DELETE /people/:id" do
     p = FactoryBot.create(:person)
     assert_difference('Person.count', -1) do
