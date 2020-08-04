@@ -11,7 +11,9 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "POST /people" do
-    post "/people", params: { person: { first_name: 'f', last_name: 'l' }}
+    assert_difference('Person.count', 1) do
+      post '/people', params: { person: { first_name: 'f', last_name: 'l' }}
+    end
     assert_redirected_to person_path(Person.last)
   end
 end
