@@ -9,4 +9,9 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     assert_match(p.first_name, @response.body)
     assert_match(p.last_name, @response.body)
   end
+
+  test "POST /people" do
+    post "/people", params: { person: { first_name: 'f', last_name: 'l' }}
+    assert_redirected_to person_path(Person.last)
+  end
 end
