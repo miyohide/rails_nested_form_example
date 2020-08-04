@@ -16,4 +16,12 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to person_path(Person.last)
   end
+
+  test "PUT /people/:id" do
+    p = FactoryBot.create(:person)
+    assert_difference('Person.count', 0) do
+      put "/people/#{p.id}", params: { person: { first_name: 'updated_f', last_name: 'updated_l' }}
+    end
+    assert_redirected_to person_path(p)
+  end
 end
