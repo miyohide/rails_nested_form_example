@@ -17,6 +17,29 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to person_path(Person.last)
   end
 
+  test "POST /people with address data" do
+    post '/people', params: {
+        person: {
+            first_name: 'f', last_name: 'l',
+            addresses_attributes: {
+                '0' => {
+                    _destroy: false, kind: 'k1', street: 's1'
+                },
+                '1' => {
+                    _destroy: '1', kind: 'non-kind', street: 'non-street'
+                },
+                '2' => {
+                    _destroy: false, kind: 'k2', street: 's2'
+                }
+            }
+        }}
+    addresses = Person.last.addresses
+    # _destroyに'1'が入っているものは作られないため、addressesは2レコードのみ
+    assert_equal(2, addresses.size)
+    assert_equal('k1', addresses[0].kind)
+    assert_equal('k2', addresses[1].kind)
+  end
+
   test "PUT /people/:id" do
     p = FactoryBot.create(:person)
     assert_difference('Person.count', 0) do
