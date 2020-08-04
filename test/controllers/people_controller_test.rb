@@ -24,4 +24,12 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to person_path(p)
   end
+
+  test "DELETE /people/:id" do
+    p = FactoryBot.create(:person)
+    assert_difference('Person.count', -1) do
+      delete "/people/#{p.id}"
+    end
+    assert_redirected_to people_path
+  end
 end
