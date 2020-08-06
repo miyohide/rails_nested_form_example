@@ -8,7 +8,7 @@ class PeopleController < ApplicationController
   end
 
   def create
-    @person = Person.create(person_params)
+    @person = Person.new(person_params)
     if @person.save
       redirect_to @person, notice: "#{@person.last_name} #{@person.first_name}を作成しました"
     else
@@ -41,6 +41,9 @@ class PeopleController < ApplicationController
 
   private
   def person_params
-    params.require(:person).permit(:first_name, :last_name, addresses_attributes: [:id, :kind, :street, :_destroy])
+    params.require(:person).permit(:first_name, :last_name,
+                                   addresses_attributes: [:id, :kind, :street, :_destroy],
+                                   abilities_attributes: [:id, :ability_name]
+                                   )
   end
 end

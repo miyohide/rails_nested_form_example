@@ -17,5 +17,27 @@
     <%= link_to_add_fields '住所の追加', f, :addresses %>
   </fieldset>
 
+  <fieldset>
+    <legend>Abilities</legend>
+    <div class="form-check form-check-inline">
+      <% ability_selections = @person.abilities.map { |record| [record.ability_name.to_sym, record]}.to_h %>
+      <% Ability::AbilityList.each_with_index do |ability, index| %>
+        <label class="form-check-label">
+          <% ability_selection = ability_selections[ability] %>
+          <% name_prefix = "person[abilities_attributes][#{index}]" %>
+          <%= hidden_field_tag "#{name_prefix}[id]", ability_selection.try(:id) %>
+          <% checked = ability_selection.present? && !ability_selection.marked_for_destruction? %>
+          <%= check_box_tag "#{name_prefix}[ability_name]", ability, checked %>
+          <%= ability %>
+        </label>
+      <% end %>
+      <%#= f.fields_for :abilities do |abilities_form| %>
+        <%# Ability::AbilityList.each do |ability| %>
+          <%#= abilities_form.check_box :ability_name, {multiple: true, include_hidden: false, class: 'form-check-input'}, ability %>
+          <%#= abilities_form.label :ability_name, ability, class: 'form-check-label' %>
+        <%# end %>
+      <%# end %>
+    </div>
+  </fieldset>
   <%= f.submit class: 'btn btn-primary mt-2' %>
 <% end %>
