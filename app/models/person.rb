@@ -4,11 +4,6 @@ class Person < ApplicationRecord
   accepts_nested_attributes_for :addresses, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :abilities, allow_destroy: true, reject_if: :all_blank
 
-  # after_initialize do
-  #   # Personが未保存でかつabilitiesが存在しなかった場合はabilitiesを作成する
-  #   abilities.build unless self.persisted? || abilities.present?
-  # end
-
   validates :first_name, presence: true
   validates :last_name, presence: true
 
