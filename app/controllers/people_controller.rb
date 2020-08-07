@@ -41,9 +41,14 @@ class PeopleController < ApplicationController
 
   private
   def person_params
+    # チェックされていない場合は:ability_nameが空となっている。その時は
+    # 削除対象とする
+    params[:person][:abilities_attributes].each do |_i, hash|
+      hash[:_destroy] = hash[:ability_name].blank?
+    end
     params.require(:person).permit(:first_name, :last_name,
                                    addresses_attributes: [:id, :kind, :street, :_destroy],
-                                   abilities_attributes: [:id, :ability_name]
+                                   abilities_attributes: [:id, :ability_name, :_destroy]
                                    )
   end
 end
