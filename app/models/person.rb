@@ -6,13 +6,4 @@ class Person < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
-
-  def self.new_with_ability(params)
-    person = self.new(first_name: params[:first_name], last_name: params[:last_name])
-    params[:abilities].each do |ability|
-      next if ability.empty?
-      person.abilities << Ability.new(ability_name: ability)
-    end
-    person
-  end
 end
