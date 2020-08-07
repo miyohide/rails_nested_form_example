@@ -31,12 +31,6 @@
           <%= ability %>
         </label>
       <% end %>
-      <%#= f.fields_for :abilities do |abilities_form| %>
-        <%# Ability::AbilityList.each do |ability| %>
-          <%#= abilities_form.check_box :ability_name, {multiple: true, include_hidden: false, class: 'form-check-input'}, ability %>
-          <%#= abilities_form.label :ability_name, ability, class: 'form-check-label' %>
-        <%# end %>
-      <%# end %>
     </div>
   </fieldset>
   <%= f.submit class: 'btn btn-primary mt-2' %>
