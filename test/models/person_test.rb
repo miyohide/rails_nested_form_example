@@ -23,4 +23,13 @@ class PersonTest < ActiveSupport::TestCase
     person.destroy
     assert_empty(person.addresses)
   end
+
+  test "return hash includes key is ability name and value is record" do
+    person = Person.create(first_name: 'f', last_name: 'l')
+    ability1 = Ability.create(ability_name: 'a1', person: person)
+    ability2 = Ability.create(ability_name: 'a2', person: person)
+    assert_equal(
+        {ability1.ability_name.to_sym => ability1,
+         ability2.ability_name.to_sym => ability2}, person.ability_selections)
+  end
 end

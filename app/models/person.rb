@@ -6,4 +6,10 @@ class Person < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+
+  def ability_selections
+    abilities.map do |record|
+      [record.ability_name.to_sym, record]
+    end.to_h
+  end
 end
