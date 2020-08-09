@@ -24,7 +24,7 @@
       <% Ability::AbilityList.each_with_index do |ability, index| %>
         <label class="form-check-label">
           <% ability_selection = ability_selections[ability] %>
-          <% name_prefix = "person[abilities_attributes][#{index}]" %>
+          <% name_prefix = ability_name_prefix(index) %>
           <%= hidden_field_tag "#{name_prefix}[id]", ability_selection.try(:id) %>
           <% checked = ability_selection.present? && !ability_selection.marked_for_destruction? %>
           <%= check_box_tag "#{name_prefix}[ability_name]", ability, checked %>
