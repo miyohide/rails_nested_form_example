@@ -18,8 +18,8 @@ class PersonTest < ActiveSupport::TestCase
 
   test "if person is deleted, addresses are deleted" do
     person = Person.create(first_name: 'f', last_name: 'l')
-    Address.create(kind: 'k1', street: 's1', person: person)
-    Address.create(kind: 'k2', street: 's2', person: person)
+    person.abilities.create(kind: 'k1', street: 's1')
+    person.abilities.create(kind: 'k2', street: 's2')
     person.destroy
     assert_empty(person.addresses)
   end
