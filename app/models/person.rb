@@ -15,7 +15,6 @@ class Person < ApplicationRecord
 
   def checked?(ability)
     ability_selection = ability_selections[ability.to_sym]
-    # p ability_selection.marked_for_destruction?
     ability_selection.present? && !ability_selection.marked_for_destruction?
   end
 end
