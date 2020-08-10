@@ -26,7 +26,6 @@
           <% ability_selection = ability_selections[ability] %>
           <% name_prefix = ability_name_prefix(index) %>
           <%= hidden_field_tag "#{name_prefix}[id]", ability_selection.try(:id) %>
-          <%# checked = ability_selection.present? && !ability_selection.marked_for_destruction? %>
           <%= check_box_tag "#{name_prefix}[ability_name]", ability, @person.checked?(ability) %>
           <%= ability %>
         </label>
