@@ -12,4 +12,10 @@ class Person < ApplicationRecord
       [record.ability_name.to_sym, record]
     end.to_h
   end
+
+  def checked?(ability)
+    ability_selection = ability_selections[ability.to_sym]
+    # p ability_selection.marked_for_destruction?
+    ability_selection.present? && !ability_selection.marked_for_destruction?
+  end
 end
