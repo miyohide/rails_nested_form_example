@@ -5,6 +5,10 @@ class PersonHelperTest < ActionView::TestCase
     assert_equal("person[abilities_attributes][1]", ability_name_prefix(1))
   end
 
+  test "when call ability_id_prefix, return person_abilities_attributes_index" do
+    assert_equal("person[abilities_attributes][1]", ability_id_prefix(1))
+  end
+
   test "return hidden tag" do
     assert_equal('<hidden name="person[abilities_attributes][1][id]"></hidden>', ability_hidden_tag(1, nil))
   end
