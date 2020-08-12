@@ -6,7 +6,7 @@ class PersonHelperTest < ActionView::TestCase
   end
 
   test "when call ability_id_prefix, return person_abilities_attributes_index" do
-    assert_equal("person[abilities_attributes][1]", ability_id_prefix(1))
+    assert_equal("person_abilities_attributes_1", ability_id_prefix(1))
   end
 
   test "return hidden tag" do
