@@ -10,12 +10,16 @@ class PersonHelperTest < ActionView::TestCase
   end
 
   test "return hidden tag" do
-    assert_equal('<hidden name="person[abilities_attributes][1][id]"></hidden>', ability_hidden_tag(1, nil))
+    assert_equal(
+        '<input type="hidden" id="person_abilities_attributes_1_id" name="person[abilities_attributes][1][id]">',
+        ability_hidden_tag(1, nil))
   end
 
   test "return hidden tag with value" do
     mock = MiniTest::Mock.new.expect(:try, 1, [:id])
     actual = ability_hidden_tag(1, mock)
-    assert_equal('<hidden name="person[abilities_attributes][1][id]" value="1"></hidden>', actual)
+    assert_equal(
+        '<input type="hidden" id="person_abilities_attributes_1_id" name="person[abilities_attributes][1][id]" value="1">',
+        actual)
   end
 end

@@ -8,6 +8,9 @@ module PersonHelper
   end
 
   def ability_hidden_tag(index, ability_selection)
-    tag.hidden name: ability_name_prefix(index) + "[id]", value: ability_selection.try(:id)
+    tag.input type: 'hidden',
+              id: "#{ability_id_prefix(index)}_id",
+              name: "#{ability_name_prefix(index)}[id]",
+              value: ability_selection.try(:id)
   end
 end
