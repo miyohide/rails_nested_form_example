@@ -26,7 +26,8 @@
           <% ability_selection = ability_selections[ability] %>
           <% name_prefix = ability_name_prefix(index) %>
           <%= ability_hidden_tag(index, ability_selection) %>
-          <%= check_box_tag "#{name_prefix}[ability_name]", ability, @person.checked?(ability) %>
+          <%= ability_checkbox_tag(index, ability, @person) %>
+          <%# check_box_tag "#{name_prefix}[ability_name]", ability, @person.checked?(ability) %>
           <%= ability %>
         </label>
       <% end %>
