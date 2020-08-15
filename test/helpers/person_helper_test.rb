@@ -22,4 +22,22 @@ class PersonHelperTest < ActionView::TestCase
         '<input type="hidden" id="person_abilities_attributes_1_id" name="person[abilities_attributes][1][id]" value="1">',
         actual)
   end
+
+  test "return check box tag with no checked" do
+    person_mock = MiniTest::Mock.new.expect(:checked?, false, [:ability1])
+    actual = ability_checkbox_tag(1, :ability1, person_mock)
+    assert_equal(
+        '<input type="checkbox" id="person_abilities_attributes_1_ability_name" name="person[abilities_attributes][1][ability_name]" value="ability1">',
+        actual
+    )
+  end
+
+  test "return check box tag with checked" do
+    person_mock = MiniTest::Mock.new.expect(:checked?, true, [:ability1])
+    actual = ability_checkbox_tag(1, :ability1, person_mock)
+    assert_equal(
+        '<input type="checkbox" id="person_abilities_attributes_1_ability_name" name="person[abilities_attributes][1][ability_name]" value="ability1" checked="checked">',
+        actual
+    )
+  end
 end
