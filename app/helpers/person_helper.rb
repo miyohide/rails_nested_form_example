@@ -21,4 +21,10 @@ module PersonHelper
               value: ability,
               checked: person.checked?(ability)
   end
+
+  def ability_form(ability, index)
+    tag.label class: 'form-check-label' do
+      "#{ability}"
+    end
+  end
 end

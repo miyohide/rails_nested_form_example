@@ -40,4 +40,12 @@ class PersonHelperTest < ActionView::TestCase
         actual
     )
   end
+
+  test "return label and input form" do
+    actual = ability_form(:ability1, 1)
+    assert_equal(
+        '<label class="form-check-label">ability1</label>',
+        actual
+    )
+  end
 end
