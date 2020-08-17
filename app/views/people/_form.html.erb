@@ -20,13 +20,8 @@
   <fieldset>
     <legend>Abilities</legend>
     <div class="form-check form-check-inline">
-      <% ability_selections = @person.ability_selections %>
       <% Ability::AbilityList.each_with_index do |ability, index| %>
-        <label class="form-check-label">
-          <%= ability_hidden_tag(index, ability_selections[ability]) %>
-          <%= ability_checkbox_tag(index, ability, @person) %>
-          <%= ability %>
-        </label>
+        <%= ability_form(ability, index, @person) %>
       <% end %>
     </div>
   </fieldset>
