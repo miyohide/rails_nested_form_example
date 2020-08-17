@@ -23,8 +23,7 @@
       <% ability_selections = @person.ability_selections %>
       <% Ability::AbilityList.each_with_index do |ability, index| %>
         <label class="form-check-label">
-          <% ability_selection = ability_selections[ability] %>
-          <%= ability_hidden_tag(index, ability_selection) %>
+          <%= ability_hidden_tag(index, ability_selections[ability]) %>
           <%= ability_checkbox_tag(index, ability, @person) %>
           <%= ability %>
         </label>
