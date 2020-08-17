@@ -22,9 +22,9 @@ module PersonHelper
               checked: person.checked?(ability)
   end
 
-  def ability_form(ability, index)
+  def ability_form(ability, index, person)
     tag.label class: 'form-check-label' do
-      "#{ability}"
+      ability_hidden_tag(index, person.ability_selections[ability]) + ability_checkbox_tag(index, ability, person)+ "#{ability}"
     end
   end
 end

@@ -42,9 +42,18 @@ class PersonHelperTest < ActionView::TestCase
   end
 
   test "return label and input form" do
-    actual = ability_form(:ability1, 1)
+    form_id = 1
+    ability_name = :ability1
+    ability = Ability.create(ability_name: ability_name)
+    person_mock = MiniTest::Mock.new
+    person_mock.expect(:ability_selections, {ability_name => ability})
+    person_mock.expect(:checked?, true, [ability_name])
+    actual = ability_form(ability_name, form_id, person_mock)
     assert_equal(
-        '<label class="form-check-label">ability1</label>',
+        "<label class=\"form-check-label\">" +
+            "<input type=\"hidden\" id=\"person_abilities_attributes_#{form_id}_id\" name=\"person[abilities_attributes][#{form_id}][id]\">" +
+            "<input type=\"checkbox\" id=\"person_abilities_attributes_#{form_id}_ability_name\" name=\"person[abilities_attributes][#{form_id}][ability_name]\" value=\"ability1\" checked=\"checked\">" +
+            "#{ability_name}</label>",
         actual
     )
   end
