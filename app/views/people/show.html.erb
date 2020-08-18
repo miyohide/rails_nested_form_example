@@ -19,4 +19,15 @@
   </table>
 <% end %>
 
+<% if @person.abilities.any? %>
+  <h2>Ability</h2>
+  <ul>
+    <% @person.abilities.each do |ability| %>
+      <li>
+        <%= ability.ability_name %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= link_to '一覧', people_path, class: 'btn btn-primary' %>
