@@ -1,8 +1,16 @@
 module PersonHelper
+  # Personモデルと1対多の関係にあるAbilityモデルに対してaccepts_nested_attributes_forとして
+  # 指定した際に生成されるname属性の文字列を返す。
+  # @param [String] index 対象のAbilityモデルのインスタンスの番号
+  # @return [String] "person[abilities_attributes][" + index + "]"
   def ability_name_prefix(index)
     "person[abilities_attributes][#{index}]"
   end
 
+  # Personモデルと1対多の関係にあるAbilityモデルに対してaccepts_nested_attributes_forとして
+  # 指定した際に生成されるid属性の文字列を返す。
+  # @param [String] index 対象のAbilityモデルのインスタンスの番号
+  # @return [String] "person_abilities_attributes_" + index
   def ability_id_prefix(index)
     "person_abilities_attributes_#{index}"
   end
