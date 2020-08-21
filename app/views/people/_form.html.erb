@@ -20,8 +20,8 @@
   <fieldset>
     <legend>Abilities</legend>
     <div class="form-check form-check-inline">
-      <% Ability::AbilityNameList.each_with_index do |ability, index| %>
-        <%= ability_form(ability, index, @person) %>
+      <% Ability::AbilityNameList.each_with_index do |ability_name, index| %>
+        <%= ability_form(ability_name, index, @person) %>
       <% end %>
     </div>
   </fieldset>
