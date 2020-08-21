@@ -22,12 +22,12 @@ module PersonHelper
               value: ability_selection.try(:id)
   end
 
-  def ability_checkbox_tag(index, ability, person)
+  def ability_checkbox_tag(index, ability_name, person)
     tag.input type: 'checkbox',
               id: "#{ability_id_prefix(index)}_ability_name",
               name: "#{ability_name_prefix(index)}[ability_name]",
-              value: ability,
-              checked: person.checked?(ability)
+              value: ability_name,
+              checked: person.checked?(ability_name)
   end
 
   def ability_form(ability_name, index, person)
