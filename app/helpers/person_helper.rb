@@ -44,11 +44,11 @@ module PersonHelper
 
   # Abilityが取りうるAbilityNameを登録するためのチェックボックスやラベルなどを作成する
   # すでにチェックされているものに対してはチェックを入れる。
-  # @param [Symbol] ability_name AbilityName
   # @param [Integer] index フォーム内で一意となる番号
+  # @param [Symbol] ability_name AbilityName
   # @param [Person] person Abilityに紐づくPersonのインスタンス
   # @return [String] 作成したチェックボックスやラベルなどのHTML
-  def ability_form(ability_name, index, person)
+  def ability_form(index, ability_name, person)
     tag.label class: 'form-check-label' do
       ability_hidden_tag(index, ability_name, person) + ability_checkbox_tag(index, ability_name, person)+ "#{ability_name}"
     end
