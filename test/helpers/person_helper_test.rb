@@ -19,8 +19,8 @@ class PersonHelperTest < ActionView::TestCase
   test "return hidden tag with value" do
     ability_name = :ability1
     person = Person.create(first_name: 'f', last_name: 'l')
-    person.abilities.create(ability_name: ability_name)
-    ability = person.abilities.first
+    ability = Ability.create(ability_name: ability_name)
+    person.abilities << ability
     actual = ability_hidden_tag(1, ability_name, person)
     assert_equal(
         "<input type=\"hidden\" id=\"person_abilities_attributes_1_id\" name=\"person[abilities_attributes][1][id]\" value=\"#{ability.id}\">",
