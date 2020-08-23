@@ -15,11 +15,17 @@ module PersonHelper
     "person_abilities_attributes_#{index}"
   end
 
-  def ability_hidden_tag(index, ability_selection)
+  # すでに登録されているAbilityのidを値に持つhiddenタグを作成する
+  # @param [Integer] index フォーム内で一意となる番号
+  # @param [String] ability_name AbilityName
+  # @param [Person] person Abilityに紐づくPersonのインスタンス
+  # @return [String] 作成したhiddenタグのHTML
+  def ability_hidden_tag(index, ability_name, person)
+    record = person.ability_selections[ability_name]
     tag.input type: 'hidden',
               id: "#{ability_id_prefix(index)}_id",
               name: "#{ability_name_prefix(index)}[id]",
-              value: ability_selection.try(:id)
+              value: record.try(:id)
   end
 
   # Abilityが取りうるAbilityNameに対応したチェックボックスを作成する
@@ -38,7 +44,7 @@ module PersonHelper
 
   def ability_form(ability_name, index, person)
     tag.label class: 'form-check-label' do
-      ability_hidden_tag(index, person.ability_selections[ability_name]) + ability_checkbox_tag(index, ability_name, person)+ "#{ability_name}"
+      ability_hidden_tag(index, ability_name, person) + ability_checkbox_tag(index, ability_name, person)+ "#{ability_name}"
     end
   end
 end
