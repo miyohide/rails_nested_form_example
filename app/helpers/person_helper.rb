@@ -22,6 +22,12 @@ module PersonHelper
               value: ability_selection.try(:id)
   end
 
+  # Abilityが取りうるAbilityNameに対応したチェックボックスを作成する
+  # すでにチェックされているものに対してはチェックを入れる。
+  # @param [String] index フォーム内で一意となる番号
+  # @param [String] ability_name AbilityName
+  # @param [Person] person Abilityに紐づくPersonのインスタンス
+  # @return [String] 作成したチェックボックスのHTML
   def ability_checkbox_tag(index, ability_name, person)
     tag.input type: 'checkbox',
               id: "#{ability_id_prefix(index)}_ability_name",
