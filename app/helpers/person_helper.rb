@@ -17,7 +17,7 @@ module PersonHelper
 
   # すでに登録されているAbilityのidを値に持つhiddenタグを作成する
   # @param [Integer] index フォーム内で一意となる番号
-  # @param [String] ability_name AbilityName
+  # @param [Symbol] ability_name AbilityName
   # @param [Person] person Abilityに紐づくPersonのインスタンス
   # @return [String] 作成したhiddenタグのHTML
   def ability_hidden_tag(index, ability_name, person)
@@ -31,7 +31,7 @@ module PersonHelper
   # Abilityが取りうるAbilityNameに対応したチェックボックスを作成する
   # すでにチェックされているものに対してはチェックを入れる。
   # @param [Integer] index フォーム内で一意となる番号
-  # @param [String] ability_name AbilityName
+  # @param [Symbol] ability_name AbilityName
   # @param [Person] person Abilityに紐づくPersonのインスタンス
   # @return [String] 作成したチェックボックスのHTML
   def ability_checkbox_tag(index, ability_name, person)
