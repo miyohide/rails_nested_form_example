@@ -20,7 +20,7 @@ class Person < ApplicationRecord
 
   # データが存在しており、かつ削除対象となっていない（marked_for_destruction?がfalse）
   # である場合はtrueを、それ以外はfalseを返す。
-  # @param ability_name [String] 対象のability名
+  # @param ability_name [Symbol] 対象のability名
   # @return [Boolean] データが存在し、削除対象となっていない場合はtrue、それ以外はfalse
   def checked?(ability_name)
     ability_selection = ability_selections[ability_name.to_sym]
