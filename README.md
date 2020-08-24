@@ -110,3 +110,99 @@ end
 
 部分テンプレートを`render(association.to_s.singularize + "_fields", f: builder)`で呼び出し、その内容を`link_to(name, '#', class: 'add_fields btn btn-primary', data: {id: id, fields: fields.gsub('\n', '')})`で作成されたリンクの`data-fields`属性に格納します。
 
+### JavaScript
+
+ヘルパーとビューで実装した以下2つのリンクに対して処理を実装します。
+
+- `link_to(name, '#', class: 'add_fields btn btn-primary', data: {id: id, fields: fields.gsub('\n', '')})`
+- `link_to '削除', '#', class: 'remove_fields btn btn-danger'`
+
+#### 追加処理
+
+`class`に`add_fields`がついているものに対して処理を付与します。`app/javascript/packs/nested-form/addFields.js`を作成し、以下の内容を実装します。
+
+```javascript
+class addFields {
+    constructor() {
+        this.links = document.querySelectorAll('.add_fields')
+        this.iterateLinks()
+    }
+
+    iterateLinks() {
+        if (this.links.length === 0) {
+            return
+        }
+        this.links.forEach((link) => {
+            link.addEventListener('click', (e) => {
+                this.handleClick(link, e)
+            })
+        })
+    }
+
+    handleClick(link, e) {
+        if (!link || !e) {
+            return
+        }
+        e.preventDefault()
+        let time = new Date().getTime()
+        // 現在作られているフォームのIDを取得
+        let linkId = link.dataset.id
+        // idを置換する正規表現を生成
+        let regexp = linkId ? new RegExp(linkId, 'g') : null
+        // 追加するフォームにあるIDの値を一律Date().getTime()で作成したIDにて置換
+        let newFields = regexp ? link.dataset.fields.replace(regexp, time) : null
+        // フォームを追加
+        newFields ? link.insertAdjacentHTML('beforebegin', newFields) : null
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => new addFields())
+```
+
+ボタンが押されたときに、ボタンの`data-fields`属性にあるフォームを`insertAdjacentHTML`で追加する処理を行っています。
+
+#### 削除処理
+
+`class`に`remove_fields`がついているものに対して処理を付与します。`app/javascript/packs/nested-form/removeFields.js`を作成し、以下の内容を実装します。
+
+```javascript
+class removeFields {
+    constructor() {
+        this.iterateLinks()
+    }
+
+    iterateLinks() {
+        document.addEventListener('click', (e) => {
+            if (e.target && e.target.classList.contains('remove_fields')) {
+                this.handleClick(e.target, e)
+            }
+        })
+    }
+
+    handleClick(link, e) {
+        if (!link || !e) {
+            return
+        }
+        e.preventDefault()
+        let fieldParent = link.closest('.nested-fields')
+        let deleteField = fieldParent ? fieldParent.querySelector('input[type="hidden"]') : null
+        if (deleteField) {
+            deleteField.value = 1
+            fieldParent.style.display = 'none'
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => new removeFields())
+```
+
+ボタンをクリックしたときに、ビューで作成した`f.hidden_field :_destroy`タグの値に`1`を入れた後フィールド全体を非表示にしています。これで、削除をクリックしたときに`_destroy`に値が設定されて削除対象としてマークされます。
+
+#### 読み込み
+
+`app/javascript/packs/application.js`に以下を追記し、`app/javascript/packs/nested-form`以下のJavaScriptを読み込むようにします。
+
+```javascript
+require('./nested-form/addFields')
+require('./nested-form/removeFields')
+```
