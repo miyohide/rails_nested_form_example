@@ -32,4 +32,15 @@ accepts_nested_attributes_for :addresses, allow_destroy: true, reject_if: :all_b
 
 を追記します。オプションの`allow_destory`は既存のメンバーを削除することを許すか否かの設定、`reject_if`は送られてきた属性から無視する設定です。詳細は上記ドキュメントを参照してください。
 
+### コントローラ
 
+[Strong parameter](https://railsguides.jp/action_controller_overview.html#strong-parameters
+)の設定を行います。`app/controllers/people_controller.rb`において下記のような記述を行います。
+
+```ruby
+params.require(:person).permit(:first_name, :last_name,
+                               addresses_attributes: [:id, :kind, :street, :_destroy]
+                               )
+```
+
+`permit`の中身や`addresses_attributes`の配列の中身は、それぞれのモデルの属性を記します。`addresses_attributes`の配列の中身はモデルの属性以外に`:id`と`:_destroy`を追加する必要があります。
