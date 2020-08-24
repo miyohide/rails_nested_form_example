@@ -1,22 +1,22 @@
 require 'test_helper'
 
 class PersonHelperTest < ActionView::TestCase
-  test "when call ability_name_prefix, return person + abilities_attributes string" do
+  test "ability_name_prefixを呼び出したとき、person[abilities_attributes][番号]を返すこと" do
     assert_equal("person[abilities_attributes][1]", ability_name_prefix(1))
   end
 
-  test "when call ability_id_prefix, return person_abilities_attributes_index" do
+  test "ability_id_prefixを呼び出したとき, person_abilities_attributes_番号を返すこと" do
     assert_equal("person_abilities_attributes_1", ability_id_prefix(1))
   end
 
-  test "return hidden tag" do
+  test "ability_hidden_tagを呼び出したとき、hiddenタグを生成すること" do
     person = Person.create(first_name: 'f', last_name: 'l')
     assert_equal(
         '<input type="hidden" id="person_abilities_attributes_1_id" name="person[abilities_attributes][1][id]">',
         ability_hidden_tag(1, :ability1, person))
   end
 
-  test "return hidden tag with value" do
+  test "対象のability_nameを持つAbilityと紐付けられたpersonが存在するとき、value付きでhiddenタグが生成されること" do
     ability_name = :ability1
     person = Person.create(first_name: 'f', last_name: 'l')
     ability = Ability.create(ability_name: ability_name)
@@ -27,7 +27,7 @@ class PersonHelperTest < ActionView::TestCase
         actual)
   end
 
-  test "return check box tag with no checked" do
+  test "checked?がfalseを返すとき、ability_checkbox_tagはチェック無しのchexboxタグを返すこと" do
     person_mock = MiniTest::Mock.new.expect(:checked?, false, [:ability1])
     actual = ability_checkbox_tag(1, :ability1, person_mock)
     assert_equal(
@@ -36,7 +36,7 @@ class PersonHelperTest < ActionView::TestCase
     )
   end
 
-  test "return check box tag with checked" do
+  test "checked?がtrueを返すとき、ability_checkbox_tagはチェックありのchexboxタグを返すこと" do
     person_mock = MiniTest::Mock.new.expect(:checked?, true, [:ability1])
     actual = ability_checkbox_tag(1, :ability1, person_mock)
     assert_equal(
@@ -45,7 +45,7 @@ class PersonHelperTest < ActionView::TestCase
     )
   end
 
-  test "return label and input form" do
+  test "ability_formを呼び出したとき、abilityを登録するためのフォームを生成すること" do
     form_id = 1
     ability_name = :ability1
     person = Person.create(first_name: 'f', last_name: 'l')
