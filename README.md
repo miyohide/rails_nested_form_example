@@ -4,6 +4,8 @@
 
 ベースとなるモデルと`has_many`な関係になっているモデルとを一緒に作成・更新するためのサンプル実装です。
 
+![img](./readme_img/nested_form_sample1.gif)
+
 ## 前提
 
 - Ruby 2.6.6
