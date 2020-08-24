@@ -30,7 +30,7 @@ belongs_to :person
 accepts_nested_attributes_for :addresses, allow_destroy: true, reject_if: :all_blank
 ```
 
-を追記します。オプションの`allow_destory`は既存のメンバーを削除することを許すか否かの設定、`reject_if`は送られてきた属性から無視する設定です。詳細は上記ドキュメントを参照してください。
+を追記します。オプションの`allow_destory`は既存のメンバーを削除することを許すか否かの設定、`reject_if`は送られてきた属性から無視する設定です。詳細は[accepts_nested_attributes_forのドキュメント](https://api.rubyonrails.org/classes/ActiveRecord/NestedAttributes/ClassMethods.html#method-i-accepts_nested_attributes_for)を参照してください。
 
 ### コントローラ
 
