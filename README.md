@@ -66,9 +66,12 @@ params.require(:person).permit(:first_name, :last_name,
 </div>
 ```
 
-ポイントは、以下3つです。
+ポイントは、以下4つです。
 
 - 部分テンプレート名（関連名の単数形 + `_fields.html.erb`）
+    - 後のヘルパーの処理で必要
+- 部分テンプレートの先頭に付けた`nested-fields`クラス
+    - 後のJavaScriptの処理で必要
 - `f.hidden_field :_destroy`
 - `link_to '削除', '#', class: 'remove_fields btn btn-danger'`
 
