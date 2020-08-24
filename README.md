@@ -66,7 +66,11 @@ params.require(:person).permit(:first_name, :last_name,
 </div>
 ```
 
-ポイントは、`f.hidden_field :_destroy`と`link_to '削除', '#', class: 'remove_fields btn btn-danger'`の2つです。
+ポイントは、以下3つです。
+
+- 部分テンプレート名（関連名の単数形 + `_fields.html.erb`）
+- `f.hidden_field :_destroy`
+- `link_to '削除', '#', class: 'remove_fields btn btn-danger'`
 
 `f.hidden_field :_destroy`はモデルでの`allow_destory`に対応するために必要になります。`link_to '削除', '#', class: 'remove_fields btn btn-danger'`は後述のJavaScriptで具体的な処理を実装します。
 
@@ -82,5 +86,27 @@ params.require(:person).permit(:first_name, :last_name,
 </fieldset>
 ```
 
-`link_to_add_fields '住所の追加', f, :addresses`の処理は後述のJavaScriptで実装します。
+`link_to_add_fields '住所の追加', f, :addresses`の処理は後述のヘルパーで実装します。
+
+### ヘルパー
+
+前述のビュー内の`link_to_add_fields '住所の追加', f, :addresses`を実装します。
+
+```ruby
+module ApplicationHelper
+  def link_to_add_fields(name, f, association)
+    new_obj = f.object.send(association).klass.new
+    # idは一意であれば何でもよい。
+    id = new_obj.object_id
+
+    fields = f.fields_for(association, new_obj, child_index: id) do |builder|
+      render(association.to_s.singularize + "_fields", f: builder)
+    end
+
+    link_to(name, '#', class: 'add_fields btn btn-primary', data: {id: id, fields: fields.gsub('\n', '')})
+  end
+end
+```
+
+部分テンプレートを`render(association.to_s.singularize + "_fields", f: builder)`で呼び出し、その内容を`link_to(name, '#', class: 'add_fields btn btn-primary', data: {id: id, fields: fields.gsub('\n', '')})`で作成されたリンクの`data-fields`属性に格納します。
 
