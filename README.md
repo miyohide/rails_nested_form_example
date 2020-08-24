@@ -44,3 +44,43 @@ params.require(:person).permit(:first_name, :last_name,
 ```
 
 `permit`の中身や`addresses_attributes`の配列の中身は、それぞれのモデルの属性を記します。`addresses_attributes`の配列の中身はモデルの属性以外に`:id`と`:_destroy`を追加する必要があります。
+
+### ビュー
+
+`Address`モデルを作成するための部分テンプレートを作成します。ここでは、`app/views/people/_address_fields.html.erb`というファイルを作り、中身を以下のようにします。
+
+```html
+<div class='nested-fields form-row'>
+  <%= f.hidden_field :_destroy %>
+  <div class='form-group col-sm-4'>
+    <%= f.label :kind %>
+    <%= f.text_field :kind, class: 'form-control' %>
+  </div>
+  <div class='form-group col-sm-4'>
+    <%= f.label :street %>
+    <%= f.text_field :street, class: 'form-control' %>
+  </div>
+  <div>
+    <%= link_to '削除', '#', class: 'remove_fields btn btn-danger' %>
+  </div>
+</div>
+```
+
+ポイントは、`f.hidden_field :_destroy`と`link_to '削除', '#', class: 'remove_fields btn btn-danger'`の2つです。
+
+`f.hidden_field :_destroy`はモデルでの`allow_destory`に対応するために必要になります。`link_to '削除', '#', class: 'remove_fields btn btn-danger'`は後述のJavaScriptで具体的な処理を実装します。
+
+上記で作成した部分テンプレートを`People`モデルを編集するフォームに追記します。
+
+```html
+<fieldset>
+<legend>Addresses:</legend>
+  <%= f.fields_for :addresses do |addresses_form| %>
+    <%= render 'address_fields', f: addresses_form %>
+  <% end %>
+  <%= link_to_add_fields '住所の追加', f, :addresses %>
+</fieldset>
+```
+
+`link_to_add_fields '住所の追加', f, :addresses`の処理は後述のJavaScriptで実装します。
+
