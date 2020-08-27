@@ -11,12 +11,12 @@
   <% @albums.each do |album| %>
     <tr>
       <td><%= album.album_title %></td>
-      <td><%= link_to('詳細', person_path(person), class: 'btn btn-primary') %></td>
-      <td><%= link_to('編集', edit_person_path(person), class: 'btn btn-secondary') %></td>
-      <td><%= link_to('削除', person_path(person), class: 'btn btn-danger', method: :delete, data: { confirm: '削除しますか?'}) %></td>
+      <td><%= link_to('詳細', album_path(album), class: 'btn btn-primary') %></td>
+      <td><%= link_to('編集', edit_album_path(album), class: 'btn btn-secondary') %></td>
+      <td><%= link_to('削除', album_path(album), class: 'btn btn-danger', method: :delete, data: { confirm: '削除しますか?'}) %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
 
-<%= link_to '新規作成', new_person_path, class: 'btn btn-primary' %>
+<%= link_to '新規作成', new_album_path, class: 'btn btn-primary' %>
