@@ -9,4 +9,24 @@ class AlbumsController < ApplicationController
     album.build_artist
     @form = AlbumForm.new(album)
   end
+
+  def create
+    album = Album.new
+    album.build_artist
+    @form = AlbumForm.new(album)
+    if @form.validate(album_params)
+      @form.save
+      redirect_to albums_path, notice: 'アルバムを作成しました'
+    else
+      render :new
+    end
+  end
+
+  private
+  def album_params
+    params.require(:album).permit(:album_title,
+                                  artist_attributes: [:full_name]
+    )
+  end
+
 end
