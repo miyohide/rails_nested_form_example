@@ -13,5 +13,12 @@
     <% end %>
   </fieldset>
 
+  <fieldset>
+    <legend>Songs:</legend>
+    <%= f.fields_for :songs do |song_form| %>
+      <%= song_form.label :title %>
+      <%= song_form.text_field :title, class: 'form-control' %>
+    <% end %>
+  </fieldset>
   <%= f.submit class: 'btn btn-primary mt-2' %>
 <% end %>

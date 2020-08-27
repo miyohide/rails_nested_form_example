@@ -7,7 +7,7 @@ class AlbumForm < Reform::Form
     validates :full_name, presence: true
   end
 
-  # collection :songs, populate_if_empty: Song do
-  #   property :title
-  # end
+  collection :songs, populate_if_empty: Song do
+    property :title
+  end
 end

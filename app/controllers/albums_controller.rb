@@ -7,12 +7,14 @@ class AlbumsController < ApplicationController
   def new
     album = Album.new
     album.build_artist
+    album.songs.build
     @form = AlbumForm.new(album)
   end
 
   def create
     album = Album.new
     album.build_artist
+    album.songs.build
     @form = AlbumForm.new(album)
     if @form.validate(album_params)
       @form.save
@@ -25,7 +27,8 @@ class AlbumsController < ApplicationController
   private
   def album_params
     params.require(:album).permit(:album_title,
-                                  artist_attributes: [:full_name]
+                                  artist_attributes: [:full_name],
+                                  songs_attributes: [:title]
     )
   end
 
