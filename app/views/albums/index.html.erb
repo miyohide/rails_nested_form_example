@@ -1,0 +1,22 @@
+<h1>Albums</h1>
+
+<table class="table">
+  <thead>
+  <tr>
+    <td>Album Title</td>
+    <td colspan="3">Links</td>
+  </tr>
+  </thead>
+  <tbody>
+  <% @albums.each do |album| %>
+    <tr>
+      <td><%= album.album_title %></td>
+      <td><%= link_to('詳細', person_path(person), class: 'btn btn-primary') %></td>
+      <td><%= link_to('編集', edit_person_path(person), class: 'btn btn-secondary') %></td>
+      <td><%= link_to('削除', person_path(person), class: 'btn btn-danger', method: :delete, data: { confirm: '削除しますか?'}) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to '新規作成', new_person_path, class: 'btn btn-primary' %>
