@@ -1,0 +1,17 @@
+<%= form_with(model: @form, local: true) do |f| %>
+  <%= render 'shared/validation-messages', object: @form %>
+  <div class="form-group">
+    <%= f.label :album_title %>
+    <%= f.text_field :album_title, class: 'form-control' %>
+  </div>
+
+  <fieldset>
+    <legend>Artist:</legend>
+    <%= f.fields_for :artist do |artist_form| %>
+      <%= artist_form.label :full_name %>
+      <%= artist_form.text_field :full_name, class: 'form-control' %>
+    <% end %>
+  </fieldset>
+
+  <%= f.submit class: 'btn btn-primary mt-2' %>
+<% end %>
