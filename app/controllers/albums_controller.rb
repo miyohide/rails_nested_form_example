@@ -6,6 +6,7 @@ class AlbumsController < ApplicationController
 
   def new
     album = Album.new
+    # artistとsongの入力フォームを生成する
     album.build_artist
     album.songs.build
     @form = AlbumForm.new(album)
@@ -13,8 +14,6 @@ class AlbumsController < ApplicationController
 
   def create
     album = Album.new
-    album.build_artist
-    album.songs.build
     @form = AlbumForm.new(album)
     if @form.validate(album_params)
       @form.save
