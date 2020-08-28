@@ -15,9 +15,15 @@
 
   <fieldset>
     <legend>Songs:</legend>
+    <div data-controller="nested-form">
+      <template data-target="nested-form.template">
+        <%= f.fields_for :songs, Song.new, child_index: 'NEW_RECORD' do |song_form| %>
+          <%= render "song_fields", form: song_form %>
+        <% end %>
+      </template>
+    </div>
     <%= f.fields_for :songs do |song_form| %>
-      <%= song_form.label :title %>
-      <%= song_form.text_field :title, class: 'form-control' %>
+      <%= render "song_fields", form: song_form %>
     <% end %>
   </fieldset>
   <%= f.submit class: 'btn btn-primary mt-2' %>
