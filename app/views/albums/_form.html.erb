@@ -16,7 +16,7 @@
   <fieldset>
     <legend>Songs:</legend>
     <div data-controller="nested-form">
-      <template data-target="nested-form.template">
+      <template id="song_fields_template">
         <%= f.fields_for :songs, Song.new, child_index: 'NEW_RECORD' do |song_form| %>
           <%= render "song_fields", form: song_form %>
         <% end %>
@@ -25,6 +25,7 @@
     <%= f.fields_for :songs do |song_form| %>
       <%= render "song_fields", form: song_form %>
     <% end %>
+    <%= link_to('追加', '#', class: 'btn btn-primary add_album_fields') %>
   </fieldset>
   <%= f.submit class: 'btn btn-primary mt-2' %>
 <% end %>

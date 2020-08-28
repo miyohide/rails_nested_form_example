@@ -9,6 +9,7 @@ require("channels")
 
 require('./nested-form/addFields')
 require('./nested-form/removeFields')
+require('./nested-form/addAlbumFields')
 
 import 'bootstrap'
 import '../stylesheets/application'
