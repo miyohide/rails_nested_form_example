@@ -1,4 +1,4 @@
 class Album < ApplicationRecord
-  has_one :artist
-  has_many :songs
+  has_one :artist, dependent: :destroy
+  has_many :songs, dependent: :destroy
 end

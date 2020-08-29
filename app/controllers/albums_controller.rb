@@ -23,6 +23,11 @@ class AlbumsController < ApplicationController
     end
   end
 
+  def destroy
+    Album.find(params[:id]).destroy
+    redirect_to albums_path, notice: 'アルバムを削除しました'
+  end
+
   private
   def album_params
     params.require(:album).permit(:album_title,
