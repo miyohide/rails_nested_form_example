@@ -27,6 +27,16 @@ class AlbumsController < ApplicationController
     @form = AlbumForm.new(Album.find(params[:id]))
   end
 
+  def update
+    @form = AlbumForm.new(Album.find(params[:id]))
+    if @form.validate(album_params)
+      @form.save
+      redirect_to albums_path, notice: 'アルバムを更新しました'
+    else
+      render :edit
+    end
+  end
+
   def destroy
     Album.find(params[:id]).destroy
     redirect_to albums_path, notice: 'アルバムを削除しました'
