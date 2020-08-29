@@ -1,0 +1,21 @@
+<h1>Album <%= @album.album_title %> detail</h1>
+<h2>Artist is <%= @album.artist.full_name %></h2>
+<% if @album.songs.any? %>
+  <h2>Songs:</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @album.songs.each do |song| %>
+        <tr>
+          <td><%= song.title %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<%= link_to 'アルバム一覧', albums_path, class: 'btn btn-primary' %>

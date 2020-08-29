@@ -37,6 +37,10 @@ class AlbumsController < ApplicationController
     end
   end
 
+  def show
+    @album = Album.find(params[:id])
+  end
+
   def destroy
     Album.find(params[:id]).destroy
     redirect_to albums_path, notice: 'アルバムを削除しました'
