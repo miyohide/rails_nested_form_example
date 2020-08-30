@@ -10,6 +10,7 @@ require("channels")
 require('./nested-form/addFields')
 require('./nested-form/removeFields')
 require('./nested-form/addAlbumFields')
+require('./nested-form/removeSongFields')
 
 import 'bootstrap'
 import '../stylesheets/application'

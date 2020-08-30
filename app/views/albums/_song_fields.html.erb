@@ -1,6 +1,7 @@
-<%= content_tag :div, class: "nested-fields" do %>
+<%= content_tag :div, class: "nested-fields", data: { new_record: form.object.new_record? } do %>
   <div class="form-group">
     <%= form.label :title %>
     <%= form.text_field :title, class: 'form-control' %>
+    <%= link_to '削除', '#', class: 'btn btn-danger remove_song_fields' %>
   </div>
 <% end %>

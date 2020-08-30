@@ -13,6 +13,8 @@ class AlbumForm < Reform::Form
   end
 
   collection :songs, populate_if_empty: Song do
+    include NestedForm
+
     property :title
     validates :title, presence: true
   end
