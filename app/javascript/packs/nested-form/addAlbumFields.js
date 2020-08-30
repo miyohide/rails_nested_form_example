@@ -1,6 +1,5 @@
 class addAlbumFields {
     constructor() {
-        console.log('aaaaaaaaaaaaaaaa')
         this.links = document.querySelectorAll('.add_album_fields')
         this.iterateLinks()
     }
@@ -20,10 +19,8 @@ class addAlbumFields {
         if (!link || !e) {
             return
         }
-        console.log(link)
         e.preventDefault()
         let newFields = document.querySelector('#song_fields_template')
-        console.log(newFields)
         newFields = newFields.innerHTML.replace(/NEW_RECORD/g, new Date().getTime())
         link.insertAdjacentHTML('beforebegin', newFields)
     }
