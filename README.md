@@ -41,8 +41,8 @@ accepts_nested_attributes_for :addresses, allow_destroy: true, reject_if: :all_b
 
 ### コントローラ
 
-[Strong parameter](https://railsguides.jp/action_controller_overview.html#strong-parameters
-)の設定を行います。`app/controllers/people_controller.rb`において下記のような記述を行います。
+[Strong parameter](https://railsguides.jp/action_controller_overview.html#strong-parameters)の設定を行います。
+`app/controllers/people_controller.rb`において下記のような記述を行います。
 
 ```ruby
 params.require(:person).permit(:first_name, :last_name,
