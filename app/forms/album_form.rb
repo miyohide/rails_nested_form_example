@@ -12,7 +12,30 @@ class AlbumForm < Reform::Form
     validates :full_name, presence: true
   end
 
-  collection :songs, populate_if_empty: Song do
+  SongPrepopulator = -> (options) {
+    if songs.size == 0
+      songs << Song.new
+    end
+  }
+
+  SongPopulator = -> (options) {
+    fragment, collection, index = options[:fragment], options[:model], options[:index]
+
+    if fragment[:id].to_s == ""
+      item = nil
+    else
+      item = collection.find { |item| item.id.to_s == fragment[:id].to_s }
+    end
+
+    if fragment["_destroy"] == "1"
+      collection.delete_at(index)
+      return skip!
+    else
+      item ? item : collection.append(Song.new)
+    end
+  }
+
+  collection :songs, prepopulator: SongPrepopulator, populator: SongPopulator do
     include NestedForm
 
     property :title

@@ -17,8 +17,14 @@ class removeSongFields {
         }
         e.preventDefault()
         let fieldParent = link.closest('.nested-fields')
-        if (fieldParent !== null && fieldParent.dataset.newRecord === 'true') {
+        if (fieldParent == null) {
+            return
+        }
+        if (fieldParent.dataset.newRecord === 'true') {
             fieldParent.remove()
+        } else {
+            fieldParent.querySelector('input[name*=_destroy]').value = '1'
+            fieldParent.style.display = 'none'
         }
     }
 }

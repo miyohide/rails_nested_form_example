@@ -2,6 +2,7 @@
   <div class="form-group">
     <%= form.label :title %>
     <%= form.text_field :title, class: 'form-control' %>
+    <%= form.hidden_field :_destroy %>
     <%= link_to '削除', '#', class: 'btn btn-danger remove_song_fields' %>
   </div>
 <% end %>
