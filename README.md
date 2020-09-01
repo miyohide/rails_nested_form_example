@@ -216,3 +216,41 @@ document.addEventListener('DOMContentLoaded', () => new removeFields())
 require('./nested-form/addFields')
 require('./nested-form/removeFields')
 ```
+
+## has_manyな項目をチェックボックスで入力・削除したい
+
+以下のstackoverflowの内容です。
+
+https://ja.stackoverflow.com/questions/14891/rails%E3%81%AE%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%81%A7%E3%83%9E%E3%83%AB%E3%83%81%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%E3%82%92%E5%AE%9F%E7%8F%BE%E3%81%97%E3%81%9F%E3%81%84
+
+実装方法も載っているので、それを参考にすれば良いかなと思います。このリポジトリでも同じものを実装しています。ポイントは以下の通り。
+
+### モデル
+
+Personモデルに対してAbilityを複数持てる形（has_manyな関係）としています。Abilityモデルが取りうる値は`AbilityNameList`で定義したものになります。
+
+Personモデルには、後々Viewで使うためのヘルパーメソッドを実装しています。
+
+### コントローラ
+
+コントローラでは[Strong parameter](https://railsguides.jp/action_controller_overview.html#strong-parameters)の設定を行います。
+
+また、`_destroy`を設定する処理を実装します。チェックが入っていないときには`ability_name`の値が空となることを利用して`_destroy`の値を設定しています。
+
+```ruby
+params[:person][:abilities_attributes].each do |_i, hash|
+  hash[:_destroy] = hash[:ability_name].blank?
+end
+```
+
+### ヘルパー
+
+Viewで必要になる記述をヘルパーメソッドとして取り出して実装しています。
+愚直に`<input type="hidden">`や`<input type="checkbox">`を作成するメソッドを作り、その2つのメソッドを使って`ability_form`メソッドで
+必要なチェックボックスを作っています。
+
+詳細は`app/helpers/person_helper.rb`を参照してください。
+
+### ビュー
+
+ヘルパーで作成した`ability_form`メソッドをAbilityモデルが取りうる値である`AbilityNameList`の各値ごとに呼び出します。
